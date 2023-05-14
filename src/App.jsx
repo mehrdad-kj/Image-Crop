@@ -36,7 +36,7 @@ function App() {
     }
   }
 
-  const onDownload = () => {
+  const onUpload = () => {
     setOutput(generateDownload(image, croppedArea))
     console.log(output)
   }
@@ -75,7 +75,7 @@ function App() {
             onClick={triggerFileSelectedPopup}
             style={{ marginRight: "10px" }}
           >Choose</Button>
-          <Button variant="contained" color="secondary" onClick={onDownload}>Download</Button>
+          <Button variant="contained" color="secondary" onClick={onUpload}>Upload</Button>
         </div>
       </div>
       {output && <div>
