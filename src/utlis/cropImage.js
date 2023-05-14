@@ -68,20 +68,19 @@ export const generateDownload = async (imageSrc, crop) => {
 
 	const canvas = await getCroppedImg(imageSrc, crop);
 
-	return canvas;
 	
-	// canvas.toBlob(
-	// 	(blob) => {
-	// 		const previewUrl = window.URL.createObjectURL(blob);
+	canvas.toBlob(
+		(blob) => {
+			const previewUrl = window.URL.createObjectURL(blob);
 
-	// 		const anchor = document.createElement("a");
-	// 		anchor.download = "image.jpeg";
-	// 		anchor.href = URL.createObjectURL(blob);
-	// 		anchor.click();
+			const anchor = document.createElement("a");
+			anchor.download = "image.jpeg";
+			anchor.href = URL.createObjectURL(blob);
+			anchor.click();
 
-	// 		window.URL.revokeObjectURL(previewUrl);
-	// 	},
-	// 	"image/jpeg",
-	// 	0.66
-	// );
+			window.URL.revokeObjectURL(previewUrl);
+		},
+		"image/jpeg",
+		0.66
+	);
 };

@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import Slider from "@mui/material/Slider";
 import { generateDownload } from "./utlis/cropImage";
+// import { getCroppedImg } from "./utlis/cropImage"
 
 
 
@@ -78,9 +79,9 @@ function App() {
           <Button variant="contained" color="secondary" onClick={onUpload}>Upload</Button>
         </div>
       </div>
-      {output && <div>
+      {/* {output && <div>
         <img src={image} />
-      </div>}
+      </div>} */}
     </>
   )
 }
