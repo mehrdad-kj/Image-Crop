@@ -3,14 +3,11 @@ import { useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 import Slider from "@mui/material/Slider";
 import { generateDownload } from "./utlis/cropImage";
-// import { getCroppedImg } from "./utlis/cropImage"
-
 
 
 function App() {
 
   const inputRef = useRef();
-
   const [image, setImage] = useState(null);
   const [croppedArea, setCroppedArea] = useState(null)
   const [crop, setCrop] = useState({
@@ -23,7 +20,6 @@ function App() {
   const triggerFileSelectedPopup = () => inputRef.current.click();
 
   const onCropComplete = (croppedAreaPercentages, croppedAreaPixels) => {
-    console.log(croppedAreaPixels)
     setCroppedArea(croppedAreaPixels)
   }
 
@@ -38,8 +34,15 @@ function App() {
   }
 
   const onUpload = () => {
-    setOutput(generateDownload(image, croppedArea))
-    console.log(output)
+    generateDownload(image, croppedArea).then((res) => {
+      setOutput(res)
+    })
+    setImage(null)
+  }
+
+
+  const onReset = () => {
+    window.location.reload();
   }
 
 
@@ -47,6 +50,12 @@ function App() {
     <>
       <div className="container">
         <div className="container-cropper">
+          <div className="hasNotImage">
+            {
+              output ? <img className="image" src={output} /> :
+                <p>Upload Your Photo ...</p>
+            }
+          </div>
           {image ?
             <>
               <div className="cropper">
@@ -56,11 +65,12 @@ function App() {
                   onCropComplete={onCropComplete}
                 />
               </div>
-              <div className="slider">
+              {/* <div className="slider">
                 <Slider min={1} max={3} step={0.1} value={zoom} onChange={(e, zoom) => setZoom(zoom)} />
-              </div>
-
-            </> : null}
+              </div> */}
+            </> :
+            null
+          }
         </div>
         <div className="container-buttons">
           <input
@@ -76,12 +86,19 @@ function App() {
             onClick={triggerFileSelectedPopup}
             style={{ marginRight: "10px" }}
           >Choose</Button>
-          <Button variant="contained" color="secondary" onClick={onUpload}>Upload</Button>
+          <Button
+            variant="contained"
+            olor="secondary"
+            onClick={onUpload}
+            style={{ marginRight: "10px" }}
+          >Upload</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={onReset}
+          >Reset</Button>
         </div>
       </div>
-      {/* {output && <div>
-        <img src={image} />
-      </div>} */}
     </>
   )
 }

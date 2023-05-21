@@ -66,21 +66,29 @@ export const generateDownload = async (imageSrc, crop) => {
 		return;
 	}
 
-	const canvas = await getCroppedImg(imageSrc, crop);
+	const canvas = (await getCroppedImg(imageSrc, crop)).toDataURL()
 
+	return canvas;
 	
-	canvas.toBlob(
-		(blob) => {
-			const previewUrl = window.URL.createObjectURL(blob);
 
-			const anchor = document.createElement("a");
-			anchor.download = "image.jpeg";
-			anchor.href = URL.createObjectURL(blob);
-			anchor.click();
+	// canvas.toBlob(
+	// 	(blob) => {
 
-			window.URL.revokeObjectURL(previewUrl);
-		},
-		"image/jpeg",
-		0.66
-	);
+			
+	// 		const previewUrl = window.URL.createObjectURL(blob);
+
+	// 		console.log(previewUrl)
+
+	// 		const anchor = document.createElement("a");
+	// 		anchor.download = "image.jpeg";
+	// 		anchor.href = URL.createObjectURL(blob);
+	// 		anchor.click();
+
+	// 		window.URL.revokeObjectURL(previewUrl);
+	// 	},
+	// 	"image/jpeg",
+	// 	0.66
+	// );
+
+
 };
